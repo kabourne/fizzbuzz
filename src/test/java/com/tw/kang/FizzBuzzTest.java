@@ -49,4 +49,11 @@ public class FizzBuzzTest {
         String result = fizzBuzz.countOff(35);
         assertThat(result, equalTo("BuzzWhizz"));
     }
+
+    @Test
+    public void given_num_is_multiple_of_3_and_5_and_7_when_countOff_then_FizzBuzz() {
+        FizzBuzz fizzBuzz = new FizzBuzz();
+        String result = fizzBuzz.countOff(105);
+        assertThat(result, equalTo("FizzBuzzWhizz"));
+    }
 }
