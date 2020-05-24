@@ -1,5 +1,8 @@
 package com.tw.kang;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FizzBuzz {
 
     private static final String FIZZ = "Fizz";
@@ -7,28 +10,22 @@ public class FizzBuzz {
     private static final String WHIZZ = "Whizz";
 
     public String countOff(int num) {
-        if (isMultipleOf(num, 3) && isMultipleOf(num, 5) && isMultipleOf(num, 7)) {
-            return FIZZ + BUZZ + WHIZZ;
-        }
-        if (isMultipleOf(num, 3) && isMultipleOf(num, 5)) {
-            return FIZZ + BUZZ;
-        }
-        if (isMultipleOf(num, 3) && isMultipleOf(num, 7)) {
-            return FIZZ + WHIZZ;
-        }
-        if (isMultipleOf(num, 5) && isMultipleOf(num, 7)) {
-            return BUZZ + WHIZZ;
-        }
+        List<String> results = new ArrayList<>();
         if (isMultipleOf(num, 3)) {
-            return FIZZ;
+            results.add(FIZZ);
         }
         if (isMultipleOf(num, 5)) {
-            return BUZZ;
+            results.add(BUZZ);
         }
         if (isMultipleOf(num, 7)) {
-            return WHIZZ;
+            results.add(WHIZZ);
         }
-        return String.valueOf(num);
+
+        if (!results.isEmpty()) {
+            return String.join("", results);
+        } else {
+            return String.valueOf(num);
+        }
     }
 
     private boolean isMultipleOf(int num, int factor) {
