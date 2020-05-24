@@ -28,4 +28,11 @@ public class FizzBuzzTest {
         String result = fizzBuzz.countOff(7);
         assertThat(result, equalTo("Whizz"));
     }
+
+    @Test
+    public void given_num_is_multiple_of_3_and_5_when_countOff_then_FizzBuzz() {
+        FizzBuzz fizzBuzz = new FizzBuzz();
+        String result = fizzBuzz.countOff(15);
+        assertThat(result, equalTo("FizzBuzz"));
+    }
 }

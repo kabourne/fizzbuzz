@@ -7,6 +7,9 @@ public class FizzBuzz {
     private static final String WHIZZ = "Whizz";
 
     public String countOff(int num) {
+        if (isMultipleOf(num, 3) && isMultipleOf(num, 5)) {
+            return FIZZ + BUZZ;
+        }
         if (isMultipleOf(num, 3)) {
             return FIZZ;
         }
