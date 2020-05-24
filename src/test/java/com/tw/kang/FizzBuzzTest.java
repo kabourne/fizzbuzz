@@ -14,4 +14,12 @@ public class FizzBuzzTest {
         String result = fizzBuzz.countOff(3);
         assertThat(result, equalTo("Fizz"));
     }
+
+    @Test
+    public void given_num_is_multiple_of_5_when_countOff_then_fizz() {
+        FizzBuzz fizzBuzz = new FizzBuzz();
+        String result = fizzBuzz.countOff(5);
+        assertThat(result, equalTo("Buzz"));
+    }
+
 }
