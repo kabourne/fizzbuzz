@@ -1,15 +1,20 @@
 package com.tw.kang;
 
 public class FizzBuzz {
+
+    private static final String FIZZ = "Fizz";
+    private static final String BUZZ = "Buzz";
+    private static final String WHIZZ = "Whizz";
+
     public String countOff(int num) {
         if (isMultipleOf(num, 3)) {
-            return "Fizz";
+            return FIZZ;
         }
         if (isMultipleOf(num, 5)) {
-            return "Buzz";
+            return BUZZ;
         }
         if (isMultipleOf(num, 7)) {
-            return "Whizz";
+            return WHIZZ;
         }
         return String.valueOf(num);
     }
