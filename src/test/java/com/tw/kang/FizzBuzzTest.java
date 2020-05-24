@@ -22,4 +22,10 @@ public class FizzBuzzTest {
         assertThat(result, equalTo("Buzz"));
     }
 
+    @Test
+    public void given_num_is_multiple_of_7_when_countOff_then_fizz() {
+        FizzBuzz fizzBuzz = new FizzBuzz();
+        String result = fizzBuzz.countOff(7);
+        assertThat(result, equalTo("Whizz"));
+    }
 }
