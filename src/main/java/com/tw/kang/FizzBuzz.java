@@ -2,15 +2,19 @@ package com.tw.kang;
 
 public class FizzBuzz {
     public String countOff(int num) {
-        if (num % 3 == 0) {
+        if (isMultipleOf(num, 3)) {
             return "Fizz";
         }
-        if (num % 5 == 0) {
+        if (isMultipleOf(num, 5)) {
             return "Buzz";
         }
-        if (num % 7 == 0) {
+        if (isMultipleOf(num, 7)) {
             return "Whizz";
         }
         return String.valueOf(num);
+    }
+
+    private boolean isMultipleOf(int num, int factor) {
+        return num % factor == 0;
     }
 }
