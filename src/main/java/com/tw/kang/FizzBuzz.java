@@ -10,6 +10,9 @@ public class FizzBuzz {
         if (isMultipleOf(num, 3) && isMultipleOf(num, 5)) {
             return FIZZ + BUZZ;
         }
+        if (isMultipleOf(num, 3) && isMultipleOf(num, 7)) {
+            return FIZZ + WHIZZ;
+        }
         if (isMultipleOf(num, 3)) {
             return FIZZ;
         }
