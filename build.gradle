@@ -23,7 +23,7 @@ checkstyle {
 }
 
 ext {
-    nexusBaseUrl = 'http://localhost:9002/repository'
+    nexusBaseUrl = 'http://nexus:9002/repository'
     nexusLocalRepoUrl = "$nexusBaseUrl/maven-local"
 }
 
