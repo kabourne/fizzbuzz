@@ -19,4 +19,14 @@ node {
             archiveArtifacts artifacts: '**/libs/*.jar', fingerprint: true, followSymlinks: false
         }
     }
+    stage('publish') {
+        timeout(3) {
+            withCredentials([usernamePassword(credentialsId: 'fizzbuzz-nexus-repo-cred', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
+                sh './gradlew publishFizzbuzzPublicationToRemoteNexusRepository
+                -PnexusUsername=$NEXUS_USERNAME
+                -PnexusPassword=$NEXUS_PASSWORD
+                -PsourceBuildNumber=$BUILD_NUMBER'
+            }
+        }
+    }
 }
