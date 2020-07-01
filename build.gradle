@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.tw.kang'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 repositories {
     mavenCentral()
@@ -20,4 +20,31 @@ checkstyle {
     maxWarnings = 0
     ignoreFailures = false
     configFile file("${rootProject.projectDir}/gradle/checkstyle/checkstyle.xml") //Checkstyle配置文件路径
+}
+
+ext {
+    nexusBaseUrl = 'http://localhost:9002/repository'
+    nexusLocalRepoUrl = "$nexusBaseUrl/maven-local"
+}
+
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        fizzbuzz(MavenPublication) {
+            artifactId = 'fizzbuzz'
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = 'remoteNexus'
+            url = nexusLocalRepoUrl
+
+            credentials {
+                username = nexusUsername
+                password = nexusPassword
+            }
+        }
+    }
 }
