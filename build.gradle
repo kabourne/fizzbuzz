@@ -1,13 +1,5 @@
 plugins {
     id 'java'
-    id 'checkstyle'
-}
-
-checkstyle {
-    sourceSets = [sourceSets.main]
-    maxWarnings = 0
-    ignoreFailures = false
-    configFile file("${rootProject.projectDir}/gradle/checkstyle/checkstyle.xml") //Checkstyle配置文件路径
 }
 
 group 'com.tw.kang'
@@ -19,4 +11,13 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+apply plugin: 'checkstyle'
+
+checkstyle {
+    sourceSets = [sourceSets.main]
+    maxWarnings = 0
+    ignoreFailures = false
+    configFile file("${rootProject.projectDir}/gradle/checkstyle/checkstyle.xml") //Checkstyle配置文件路径
 }
