@@ -1,6 +1,18 @@
 pipeline {
     agent any
 
+    options {
+      buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '50')
+    }
+
+    parameters {
+      choice choices: ['info', 'quiet', 'debug', 'stacktrace'], description: 'please choose the gradle log level', name: 'logLevel'
+    }
+
+    triggers {
+      pollSCM '* * * * *'
+    }
+
     stages {
         stage('source') {
             steps {
@@ -9,17 +21,30 @@ pipeline {
         }
         stage('clean and unit test') {
             steps {
-                sh './gradlew clean test'
+                sh './gradlew clean test --$logLevel'
             }
         }
         stage('check') {
             steps {
-                sh './gradlew check'
+                sh './gradlew check --$logLevel'
             }
         }
         stage('assemble') {
             steps {
-                sh './gradlew assemble -PsourceBuildNumber=$BUILD_NUMBER'
+                sh './gradlew assemble -PsourceBuildNumber=$BUILD_NUMBER --$logLevel'
+            }
+        }
+        stage('publish') {
+            steps {
+                timeout(3) {
+                    withCredentials([usernamePassword(credentialsId: 'fizzbuzz-nexus-repo-cred', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
+                        sh './gradlew publishFizzbuzzPublicationToRemoteNexusRepository
+                        -PnexusUsername=$NEXUS_USERNAME
+                        -PnexusPassword=$NEXUS_PASSWORD
+                        -PsourceBuildNumber=$BUILD_NUMBER
+                        --$logLevel'
+                    }
+                }
             }
         }
     }
