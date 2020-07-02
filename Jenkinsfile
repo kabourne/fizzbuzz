@@ -6,7 +6,7 @@ properties([
 
 node {
     stage('source') {
-        git credentialsId: 'kaliu-github-repo-cred', url: 'git@github.com:kabourne/fizzbuzz.git'
+        git credentialsId: 'kabourne-github-repo', url: 'git@github.com:kabourne/fizzbuzz.git'
     }
     stage('clean and unit test') {
         try {
@@ -27,17 +27,9 @@ node {
     }
     stage('publish') {
         timeout(3) {
-            withCredentials([usernamePassword(credentialsId: 'fizzbuzz-nexus-repo-cred', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
-                sh './gradlew publishFizzbuzzPublicationToRemoteNexusRepository
-                -PnexusUsername=$NEXUS_USERNAME
-                -PnexusPassword=$NEXUS_PASSWORD
-                -PsourceBuildNumber=$BUILD_NUMBER
-                --$logLevel'
+            withCredentials([usernamePassword(credentialsId: 'nexusMavenLocalRepo', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
+                sh './gradlew publishFizzbuzzPublicationToRemoteNexusRepository -PnexusUsername=$NEXUS_USERNAME -PnexusPassword=$NEXUS_PASSWORD -PsourceBuildNumber=$BUILD_NUMBER --$logLevel'
             }
         }
     }
 }
-
-
-
-
